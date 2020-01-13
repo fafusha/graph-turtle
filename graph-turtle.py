@@ -42,7 +42,7 @@ class Graph:
         del self.vertices[vertex]
         self.vertices_count -= 1
 
-
+    # add support for oriented or not
     #  Setting edge value
     def set_edge_value(self, x, y, v):
         # Doing it twice, since graph is non-oriented
@@ -58,12 +58,14 @@ class Graph:
     #  Getting edge value
     def get_edge_value(self, x, y):
         return self.matrix[self.vertices[y]][self.vertices[x]]
+        ## add inf checking or n/a
 
     #  Determing if two vericies are adjacent
     def adjacent(self, x, y):
         return self.matrix[self.vertices[y]][self.vertices[x]] != self.INF
 
     #  Creating a list of all adjecnt vertecies to a vertex
+    #rename to adjacent l
     def neighbours(self, x):
         lst = []
         for y in range(self.vertices_count):

@@ -1,3 +1,7 @@
+from math import *
+from turtle import *
+from graph-turtle import *
+
 #  Generating vertices of n-polygon
 def coordinate_generation(graph, r,  xo = 0, yo  = 0):
     out = []
