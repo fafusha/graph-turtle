@@ -13,8 +13,6 @@ class Graph(object):
         directed: A boolean indicating if a graph is directed
         adj_l: A dictionary containing an adjacency list
 
-
-
     """
 
     # A Graph type object
