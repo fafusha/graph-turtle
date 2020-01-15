@@ -1,12 +1,26 @@
-class Graph(object):
-    ""
-    vertices: set
-    edges: set
-    ""
+"""Description of the module
 
-    # A Graph type object'''
+"""
+
+class Graph(object):
+    """Summary of a class here.
+
+    long desription here...
+
+    Attributes:
+        vertices: A set containing vertices of a graph
+        edges: A set containing edges of a graph as tuples of length 2
+        directed: A boolean indicating if a graph is directed
+        adj_l: A dictionary containing an adjacency list
+
+
+
+    """
+
+    # A Graph type object
     def __init__(self, vertices, edges, directed=False):
         # A new graph with given vertices and sets
+        # Catching Type Errors Block
         if not isinstance(vertices, set):
             raise TypeError("vertices must be a set")  # fix err msg
         # A copy of this is in add_edges KEEP TRACK OF CHANGES {
@@ -14,15 +28,13 @@ class Graph(object):
             raise TypeError("edges must be a set")  # fix err msg
         for edge in edges:
             if not isinstance(edge, tuple):
-                raise TypeError("each edge must be a tuple")  # fix err msg
-            # if len(edge) != 2:
-            # ^^^^^^^^^ is python smart ?
-            l_tester = len(edge) != 2
-            if l_tester:
-                raise TypeError("each edge only 2 elements")  # fix err msg
+                raise TypeError("edges must only contain tuples")  # fix err msg
+            if len(edge) != 2:
+                raise TypeError("edges must only contain tuples of length 2")  # fix err msg
         # }
         if not isinstance(directed, bool):
             raise TypeError("directed must be bool")  # fix err msg
+        # end fo error block
 
         self.vertices = vertices
         self.edges = edges
@@ -71,15 +83,20 @@ class Graph(object):
             for edge in edges:
                 # possibly combine two if statements together, review later
                 # decided not to change because errors are different ???
+                # Start of error block
                 if not isinstance(edge, tuple):
                     raise TypeError("each edge must be a tuple")  # fix err msg
                 if len(edge) != 2:
                     raise TypeError("each edge must have only beg and the end")  # fix err msg
+                # end of error block
+
+                # adding edges
                 v1, v2 = edge
                 if v1 not in self.vertices:
                     raise NameError("v1 does nto belong to a graph")  # fix err msg
                 if v2 not in self.vertices:
                     raise NameError("v2 does nto belong to a graph")  # fix err msg
+
                 if v1 not in self.adj_l:
                     self.adj_l[v1] = {v2}
                 else:
@@ -89,9 +106,11 @@ class Graph(object):
                         self.adj_l[v2] = {v1}
                     else:
                         self.adj_l[v2].add(v1)
+        # case for a single variable
         elif isinstance(edges, tuple):
             if len(edges) != 2:
                 raise TypeError("each edge must have only beg and the end")  # fix err msg
+            # adding edges
             v1, v2 = edges
             if v1 not in self.vertices:
                 raise NameError("v1 does nto belong to a graph")  # fix err msg
@@ -126,9 +145,34 @@ class Graph(object):
             raise TypeError("edge must be a tuple of length 2 ")  # fix err msg
         return edg in self.edges
 
-    def is_adjacent(self, v1, v2):
+    def incident(self, v1, v2):
+        # possible change name to incident??
         # one line solution may cause bugs for dir and undirected graphs look into it
         return v2 in self.adj_l[v1]
+
+    def order(self):
+        """Returns the order of a graph.
+
+        :return:
+        """
+        return len(self.vertices)
+
+    def size(self):
+        """Returns the size of a graph.
+
+        :return:
+        """
+        # size of a graph
+        # add a fix for directed and undirected graphs
+        return len(self.edges)
+
+    def degree(self, vertex):
+        # degree of a vertex
+        # add error for vertex not in self.verticies
+        return len(self.adj_l[vertex])
+
+
+
 
 # DRY don't repeat yourself
 # also add type checking when inputting
